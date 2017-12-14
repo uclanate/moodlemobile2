@@ -1,14 +1,14 @@
 {
-  "name": "moodlemobile",
-  "version": "3.4.0",
-  "description": "The official app for Moodle.",
+  "name": "CCLEmobile",
+  "version": "1.0.0",
+  "description": "The official mobile app for UCLA CCLE.",
   "author": {
-    "name": "Moodle Pty Ltd.",
-    "email": "mobile@moodle.com"
+    "name": "UCLA",
+    "email": "frontdesk@oit.ucla.edu"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/moodlehq/moodlemobile2.git"
+    "url": "https://github.com/ucla/moodlemobile2"
   },
   "license": "Apache-2.0",
   "licenses": [

@@ -45,8 +45,10 @@
     padding-top: 0;
     padding-bottom: 0;
   }
-  background: -webkit-radial-gradient(white, $gray-light);
-  background: radial-gradient(white, $gray-light);
+  // background: -webkit-radial-gradient(white, #3284BF);
+  // background: radial-gradient(white, #3284BF);
+  background: -webkit-radial-gradient(white, #3284BF);
+  background: radial-gradient(white, #3284BF);   
 
   img {
     max-width: 100%;
@@ -60,11 +62,10 @@
   .box {
     padding: 16px;
     background: $white;
-    border: 1px solid $item-default-border;
+    border: 1px solid #3284BF;
   }
 
   .mm-sitename, .mm-siteurl {
     @if $mm-fixed-url { display: none; }
   }
 }
-

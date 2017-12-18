@@ -64,7 +64,7 @@
     "searchby": "Search by:",
     "security_question": "Security question",
     "selectacountry": "Select a country",
-    "selectsite": "Please select your site:",
+    "selectsite": "Please select your CCLE site:",
     "signupplugindisabled": "{{$a}} is not enabled.",
     "siteaddress": "Site address",
     "siteinmaintenance": "Your site is in maintenance mode",

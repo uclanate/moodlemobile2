@@ -142,7 +142,6 @@ angular.module('mm.core')
      */
     function formatAndRenderContents(scope, element, attrs, text) {
         var maxHeight = false;
-
         if (typeof text == 'undefined') {
             element.removeClass('opacity-hide');
             return;

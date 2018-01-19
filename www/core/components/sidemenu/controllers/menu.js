@@ -39,7 +39,7 @@ angular.module('mm.core.sidemenu')
         var config = $mmSite.getStoredConfig();
 
         $scope.siteinfo = $mmSite.getInfo();
-        $scope.logoutLabel = 'mm.sidemenu.' + (config && config.tool_mobile_forcelogout == "1" ? 'logout': 'changesite');
+        $scope.logoutLabel = 'mm.sidemenu.logout';
         $scope.showWeb = !$mmSite.isFeatureDisabled('$mmSideMenuDelegate_website');
         $scope.showHelp = !$mmSite.isFeatureDisabled('$mmSideMenuDelegate_help');
 

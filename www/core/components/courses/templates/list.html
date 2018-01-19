@@ -1,7 +1,8 @@
 <ion-view view-title="{{ 'mm.courses.mycourses' | translate }}">
-    <ion-nav-buttons side="secondary">
-        <a ui-sref="site.mm_searchcourses" ng-if="searchEnabled" class="button button-icon ion-ios-search-strong"></a>
-    </ion-nav-buttons>
+    <!-- ADD NAV BAR FOR TERM-DROPDOWN -->
+    <!-- <ion-nav-buttons side="secondary">
+        <a ui-sref="site.mm_searchcourses" class="button button-icon ion-select"></a>
+    </ion-nav-buttons> -->
     <ion-content padding="true" mm-state-class>
         <!-- ion-refresher needs to be direct child of ion-content to work with native scrolling -->
         <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="coursesLoaded" on-refresh="refreshCourses()">
@@ -13,7 +14,13 @@
                     <input type="text" placeholder="{{ 'mm.courses.filtermycourses' | translate}}" ng-model="filter.filterText">
                 </ion-input>
             </div>
-            <mm-course-list-progress ng-repeat="course in courses | filter:{fullname: filter.filterText}" course="course" show-summary="true"></mm-course-list-progress>
+            <p> CCLE </p>
+            <mm-course-list-progress ng-repeat="course in courses | filter:{fullname: filter.filterText}" course="course" show-summary="false"></mm-course-list-progress>
+            <mm-empty-box ng-if="!courses || !courses.length" icon="ion-ionic" message="{{ 'mm.courses.nocourses' | translate }}">
+                <p ng-if="searchEnabled">{{ 'mm.courses.searchcoursesadvice' | translate }}</p>
+            </mm-empty-box>
+            <p> SSC </p>
+            <mm-course-list-progress ccle-site="2" ng-repeat="course in courses | filter:{fullname: filter.filterText}" course="course" show-summary="false"></mm-course-list-progress>
             <mm-empty-box ng-if="!courses || !courses.length" icon="ion-ionic" message="{{ 'mm.courses.nocourses' | translate }}">
                 <p ng-if="searchEnabled">{{ 'mm.courses.searchcoursesadvice' | translate }}</p>
             </mm-empty-box>

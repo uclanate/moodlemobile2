@@ -44,6 +44,7 @@ angular.module('mm.core.sidemenu')
                 map = {},
                 result = [];
 
+
             if (!itemsString || typeof itemsString != 'string') {
                 // Setting not valid.
                 return result;

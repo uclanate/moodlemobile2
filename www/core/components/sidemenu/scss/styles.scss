@@ -3,7 +3,7 @@
   @include bar-style($bar-side-menu-color, $bar-side-menu-border-color, $bar-side-menu-text-color);
   height: $bar-side-menu-height !important; // MOBILE-959: Added !important to fix side menu header in iOS.
   .item {
-    background: transparent;
+    background: 'red';
     border: none;
   }
   .item-avatar {

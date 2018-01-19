@@ -552,7 +552,6 @@ angular.module('mm.core.courses')
         if (typeof preferCache == 'undefined') {
             preferCache = false;
         }
-
         return $mmSitesManager.getSite(siteid).then(function(site) {
 
             var userid = site.getUserId(),

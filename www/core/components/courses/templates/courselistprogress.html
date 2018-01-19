@@ -21,6 +21,8 @@
         <i ng-if="showActions && loaded" class="icon ion-android-more-vertical mm-animate-show-hide" ng-click="showCourseActions($event)"></i>
         <ion-spinner ng-if="!loaded" class="mm-animate-show-hide"></ion-spinner>
     </a>
+
+    <!-- ADD "SHOW MORE" BUTTON TO TOGGLE SUMMARY VISIBILITY -->
     <div class="item item-text-wrap item-borderless" ng-show="course.summary" ng-if="showSummary">
         <p>
             <summary>
@@ -28,5 +30,8 @@
             </summary>
         </p>
     </div>
+    <!-- <button>Show More ...</button> -->
+    <!-- ADD "SHOW MORE" BUTTON TO TOGGLE SUMMARY VISIBILITY -->
+
     <div ng-transclude></div>
 </div>

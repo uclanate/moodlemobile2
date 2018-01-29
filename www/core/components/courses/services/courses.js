@@ -548,32 +548,48 @@ angular.module('mm.core.courses')
      * @param {String} [siteid]            Site to get the courses from. If not defined, use current site.
      * @return {Promise}                   Promise to be resolved when the courses are retrieved.
      */
-    self.getUserCourses = function(preferCache, siteid) {
+    self.getUserCourses = function(preferCache) {
         if (typeof preferCache == 'undefined') {
             preferCache = false;
         }
-        return $mmSitesManager.getSite(siteid).then(function(site) {
 
-            var userid = site.getUserId(),
-                presets = {
-                    cacheKey: getUserCoursesCacheKey(),
-                    omitExpires: preferCache
-                },
-                data = {userid: userid};
+        return $mmSitesManager.getSites().then(function(sites) {
 
-            if (typeof userid === 'undefined') {
-                return $q.reject();
-            }
+          console.log('tinytiger1')
+          console.log(sites)
 
-            return site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
-                siteid = siteid || site.getId();
-                if (siteid === $mmSite.getId()) {
-                    // Only store courses if we're getting current site courses. This function is deprecated and will be removed.
-                    storeCoursesInMemory(courses);
+          const sitepromises = sites.map(function(site) {
+            return $mmSitesManager.getSite(site.siteid)
+          })
+          return $q.all(sitepromises).then(function(sites) {
+
+            console.log('tinytiger2')
+            console.log(sites)
+
+            var allcourses = [];
+            angular.forEach(sites, function(site) {
+
+
+                var userid = site.getUserId(),
+                    presets = {
+                        cacheKey: getUserCoursesCacheKey(),
+                        omitExpires: preferCache
+                    },
+                    data = {userid: userid};
+                if (typeof userid === 'undefined') {
+                    return $q.reject();
                 }
-                return courses;
+                site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
+                    // siteid = siteid || site.getId();
+                    allcourses = allcourses.concat(courses);
+                    // Store courses in memory MAY NEED TO MOVE THIS AROUND!!!
+                    storeCoursesInMemory(courses); //tinytiger
+                });
             });
-        });
+            return allcourses
+
+          })
+        })
     };
 
     /**

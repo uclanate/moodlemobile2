@@ -585,8 +585,6 @@ angular.module('mm.core')
     self.getSite = function(siteId) {
         if (!siteId) {
             return currentSite ? $q.when(currentSite) : $q.reject();
-        } else if (currentSite && currentSite.getId() === siteId) {
-            return $q.when(currentSite);
         } else if (typeof sites[siteId] != 'undefined') {
             return $q.when(sites[siteId]);
         } else {

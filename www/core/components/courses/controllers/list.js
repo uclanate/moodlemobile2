@@ -54,6 +54,8 @@ angular.module('mm.core.courses')
 
     fetchCourses().finally(function() {
         $scope.coursesLoaded = true;
+        console.log('tinytiger2')
+        console.log($scope.courses)
     });
 
     $scope.refreshCourses = function() {

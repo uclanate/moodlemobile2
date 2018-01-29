@@ -555,16 +555,14 @@ angular.module('mm.core.courses')
 
         return $mmSitesManager.getSites().then(function(sites) {
 
-          console.log('tinytiger1')
-          console.log(sites)
+
 
           const sitepromises = sites.map(function(site) {
             return $mmSitesManager.getSite(site.siteid)
           })
           return $q.all(sitepromises).then(function(sites) {
 
-            console.log('tinytiger2')
-            console.log(sites)
+
 
             var allcourses = [];
             angular.forEach(sites, function(site) {
@@ -583,7 +581,9 @@ angular.module('mm.core.courses')
                     // siteid = siteid || site.getId();
                     allcourses = allcourses.concat(courses);
                     // Store courses in memory MAY NEED TO MOVE THIS AROUND!!!
-                    storeCoursesInMemory(courses); //tinytiger
+                    storeCoursesInMemory(courses);
+                    console.log('tinytiger1')
+                    console.log(allcourses)
                 });
             });
             return allcourses

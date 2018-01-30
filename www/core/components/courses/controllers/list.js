@@ -35,6 +35,11 @@ angular.module('mm.core.courses')
         return $mmCourses.getUserCourses().then(function(courses) {
             $scope.filter.filterText = ''; // Filter value MUST be set after courses are shown.
 
+            // DEBUG
+            console.log('tinytiger2')
+            console.log(courses) //EMPTY
+            // DEBUG
+
             var courseIds = courses.map(function(course) {
                 return course.id;
             });
@@ -54,8 +59,6 @@ angular.module('mm.core.courses')
 
     fetchCourses().finally(function() {
         $scope.coursesLoaded = true;
-        console.log('tinytiger2')
-        console.log($scope.courses)
     });
 
     $scope.refreshCourses = function() {

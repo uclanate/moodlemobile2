@@ -553,42 +553,44 @@ angular.module('mm.core.courses')
             preferCache = false;
         }
 
+        // Get list of sites
         return $mmSitesManager.getSites().then(function(sites) {
+            // Get siteid for each site
+            const sitepromises = sites.map(function(site) {
+                return $mmSitesManager.getSite(site.siteid)
+            })
+            // Wait until all siteids requests have come in
+            return $q.all(sitepromises).then(function(sites) {
+                // Loop through each site to get courses
+                var allcourses = [];
+                var sitecounter = 0;
+                angular.forEach(sites, function(site) {
+                    // Get user id
+                    var userid = site.getUserId(),
+                        presets = {
+                            cacheKey: getUserCoursesCacheKey(),
+                            omitExpires: preferCache
+                        },
+                        data = {userid: userid};
+                    if (typeof userid === 'undefined') {
+                        return $q.reject();
+                    }
+                    // Read user courses for this site
+                    site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
+                        // Add courses to aggregate
+                        allcourses = allcourses.concat(courses);
+                        // Store courses in memory
+                        // storeCoursesInMemory(courses);
 
+                        // USE PROMISE TO MAKE SURE THIS FINISHES BEFORE RETURNING ALLCOURSES BELOW
+                    }).then(function(){
+                      console.log('tinytiger1') // NOT EMPTY
+                      console.log(allcourses)
 
-
-          const sitepromises = sites.map(function(site) {
-            return $mmSitesManager.getSite(site.siteid)
-          })
-          return $q.all(sitepromises).then(function(sites) {
-
-
-
-            var allcourses = [];
-            angular.forEach(sites, function(site) {
-
-
-                var userid = site.getUserId(),
-                    presets = {
-                        cacheKey: getUserCoursesCacheKey(),
-                        omitExpires: preferCache
-                    },
-                    data = {userid: userid};
-                if (typeof userid === 'undefined') {
-                    return $q.reject();
-                }
-                site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
-                    // siteid = siteid || site.getId();
-                    allcourses = allcourses.concat(courses);
-                    // Store courses in memory MAY NEED TO MOVE THIS AROUND!!!
-                    storeCoursesInMemory(courses);
-                    console.log('tinytiger1')
-                    console.log(allcourses)
+                    });
                 });
-            });
-            return allcourses
-
-          })
+                return allcourses
+            })
         })
     };
 

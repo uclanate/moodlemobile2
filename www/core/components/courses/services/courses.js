@@ -548,51 +548,34 @@ angular.module('mm.core.courses')
      * @param {String} [siteid]            Site to get the courses from. If not defined, use current site.
      * @return {Promise}                   Promise to be resolved when the courses are retrieved.
      */
-    self.getUserCourses = function(preferCache) {
-        if (typeof preferCache == 'undefined') {
-            preferCache = false;
-        }
+     self.getUserCourses = function(preferCache, siteid) {
+         if (typeof preferCache == 'undefined') {
+             preferCache = false;
+         }
 
-        // Get list of sites
-        return $mmSitesManager.getSites().then(function(sites) {
-            // Get siteid for each site
-            const sitepromises = sites.map(function(site) {
-                return $mmSitesManager.getSite(site.siteid)
-            })
-            // Wait until all siteids requests have come in
-            return $q.all(sitepromises).then(function(sites) {
-                // Loop through each site to get courses
-                var allcourses = [];
-                var sitecounter = 0;
-                angular.forEach(sites, function(site) {
-                    // Get user id
-                    var userid = site.getUserId(),
-                        presets = {
-                            cacheKey: getUserCoursesCacheKey(),
-                            omitExpires: preferCache
-                        },
-                        data = {userid: userid};
-                    if (typeof userid === 'undefined') {
-                        return $q.reject();
-                    }
-                    // Read user courses for this site
-                    site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
-                        // Add courses to aggregate
-                        allcourses = allcourses.concat(courses);
-                        // Store courses in memory
-                        // storeCoursesInMemory(courses);
+         return $mmSitesManager.getSite(siteid).then(function(site) {
 
-                        // USE PROMISE TO MAKE SURE THIS FINISHES BEFORE RETURNING ALLCOURSES BELOW
-                    }).then(function(){
-                      console.log('tinytiger1') // NOT EMPTY
-                      console.log(allcourses)
+             var userid = site.getUserId(),
+                 presets = {
+                     cacheKey: getUserCoursesCacheKey(),
+                     omitExpires: preferCache
+                 },
+                 data = {userid: userid};
 
-                    });
-                });
-                return allcourses
-            })
-        })
-    };
+             if (typeof userid === 'undefined') {
+                 return $q.reject();
+             }
+
+             return site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
+                 siteid = siteid || site.getId();
+                 if (siteid === $mmSite.getId()) {
+                     // Only store courses if we're getting current site courses. This function is deprecated and will be removed.
+                     storeCoursesInMemory(courses);
+                 }
+                 return courses;
+             });
+         });
+     };
 
     /**
      * Get cache key for get user courses WS call.

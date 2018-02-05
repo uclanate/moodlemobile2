@@ -32,13 +32,15 @@ angular.module('mm.core.courses')
 
     // Convenience function to fetch courses.
     function fetchCourses(refresh) {
+
+
+        console.log($mmCourses.getUserCoursesPooled());
+        console.log('tiger')
+
         return $mmCourses.getUserCourses().then(function(courses) {
             $scope.filter.filterText = ''; // Filter value MUST be set after courses are shown.
 
-            // DEBUG
-            console.log('tinytiger2')
-            console.log(courses) //EMPTY
-            // DEBUG
+            console.log()
 
             var courseIds = courses.map(function(course) {
                 return course.id;

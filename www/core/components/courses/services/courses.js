@@ -545,8 +545,8 @@ angular.module('mm.core.courses')
      * @ngdoc method
      * @name $mmCourses#getUserCourses
      * @param {Boolean} [preferCache=false] True if shouldn't call WS if data is cached, false otherwise.
-     * @param {String} [siteid]            Site to get the courses from. If not defined, use current site.
-     * @return {Promise}                   Promise to be resolved when the courses are retrieved.
+     * @param {String} [siteid]             Site to get the courses from. If not defined, use current site.
+     * @return {Promise}                    Promise to be resolved when the courses are retrieved.
      */
      self.getUserCourses = function(preferCache, siteid) {
          if (typeof preferCache == 'undefined') {
@@ -576,6 +576,12 @@ angular.module('mm.core.courses')
              });
          });
      };
+
+     // UCLA function to pool course list
+     self.getUserCoursesPooled = function() {
+       console.log('hi')
+       return 'tiny'
+     }
 
     /**
      * Get cache key for get user courses WS call.

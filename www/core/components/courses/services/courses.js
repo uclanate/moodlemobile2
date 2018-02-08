@@ -552,9 +552,7 @@ angular.module('mm.core.courses')
          if (typeof preferCache == 'undefined') {
              preferCache = false;
          }
-
          return $mmSitesManager.getSite(siteid).then(function(site) {
-
              var userid = site.getUserId(),
                  presets = {
                      cacheKey: getUserCoursesCacheKey(),
@@ -565,7 +563,6 @@ angular.module('mm.core.courses')
              if (typeof userid === 'undefined') {
                  return $q.reject();
              }
-
              return site.read('core_enrol_get_users_courses', data, presets).then(function(courses) {
                  siteid = siteid || site.getId();
                  if (siteid === $mmSite.getId()) {
@@ -579,8 +576,20 @@ angular.module('mm.core.courses')
 
      // UCLA function to pool course list
      self.getUserCoursesPooled = function() {
-       console.log('hi')
-       return 'tiny'
+       return $mmSitesManager.getSitesIds().then(function(siteids){
+          if (siteids.length!=2) {
+               //run login script
+          } else {
+              return self.getUserCourses(false,siteids[0]).then(function(courses1){
+                  return self.getUserCourses(false,siteids[1]).then(function(courses2){
+                      courses = courses1.concat(courses2);
+                      console.log('tinytiger1')
+                      console.log(courses)
+                      return courses
+                  })
+              })
+        }
+       })
      }
 
     /**

@@ -32,41 +32,19 @@ angular.module('mm.core.courses')
 
     // Convenience function to fetch courses.
 
-    // function fetchCourses(refresh) {
-    //     return $mmCourses.getUserCourses().then(function(courses) {
-    //         $scope.filter.filterText = ''; // Filter value MUST be set after courses are shown.
-    //         var courseIds = courses.map(function(course) {
-    //             return course.id;
-    //         });
-    //
-    //         return $mmCourses.getCoursesOptions(courseIds).then(function(options) {
-    //             angular.forEach(courses, function(course) {
-    //                 course.progress = isNaN(parseInt(course.progress, 10)) ? false : parseInt(course.progress, 10);
-    //                 course.navOptions = options.navOptions[course.id];
-    //                 course.admOptions = options.admOptions[course.id];
-    //             });
-    //             $scope.courses = courses;
-    //         });
-    //     }, function(error) {
-    //         $mmUtil.showErrorModalDefault(error, 'mm.courses.errorloadcourses', true);
-    //     });
-    // }
-
     function fetchCourses(refresh) {
         return $mmCourses.getUserCoursesPooled().then(function(courses){
             $scope.filter.filterText = ''; // Filter value MUST be set after courses are shown.
-            console.log('tinytiger2')
-            console.log(courses)
             var courseIds = courses.map(function(course) {
                 return course.id;
             });
-
             return $mmCourses.getCoursesOptions(courseIds).then(function(options) {
                 angular.forEach(courses, function(course) {
                     course.progress = isNaN(parseInt(course.progress, 10)) ? false : parseInt(course.progress, 10);
                     course.navOptions = options.navOptions[course.id];
                     course.admOptions = options.admOptions[course.id];
                 });
+                
                 $scope.courses = courses;
             });
         }, function(error) {

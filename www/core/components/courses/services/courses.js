@@ -578,13 +578,22 @@ angular.module('mm.core.courses')
      self.getUserCoursesPooled = function() {
        return $mmSitesManager.getSitesIds().then(function(siteids){
           if (siteids.length!=2) {
-               //run login script
+               //route to login page
           } else {
+              // get courses from site 1
               return self.getUserCourses(false,siteids[0]).then(function(courses1){
+                  // add siteid to course objects
+                  angular.forEach(courses1, function(course){
+                      course.siteid = siteids[0];
+                  });
+                  // get courses from site 2
                   return self.getUserCourses(false,siteids[1]).then(function(courses2){
+                      // add siteid to course objects
+                      angular.forEach(courses1, function(course){
+                          course.siteid = siteids[1];
+                      });
+                      // concat courses & return
                       courses = courses1.concat(courses2);
-                      console.log('tinytiger1')
-                      console.log(courses)
                       return courses
                   })
               })

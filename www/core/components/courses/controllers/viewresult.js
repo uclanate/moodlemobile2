@@ -189,7 +189,7 @@ angular.module('mm.core.courses')
             });
         });
 
-        // Convenience function to self-enrol a user in a course.
+        // Convenience function to self-enroll a user in a course.
         $scope.enrol = function(instanceId, password) {
             var promise;
 

@@ -23,12 +23,20 @@ angular.module('mm.core.course')
  */
 .controller('mmCourseSectionsCtrl', function($mmCourse, $mmUtil, $scope, $stateParams, $translate, $mmCourseHelper, $mmEvents,
             $mmSite, $mmCoursePrefetchDelegate, $mmCourses, $q, $ionicHistory, $ionicPlatform, mmCoreCourseAllSectionsId,
-            mmCoreEventSectionStatusChanged, $state, $timeout, $mmCoursesDelegate, $controller) {
+            mmCoreEventSectionStatusChanged, $state, $timeout, $mmCoursesDelegate, $controller, $mmSitesManager) {
     var courseId = $stateParams.courseid,
         sectionId = parseInt($stateParams.sid, 10),
         sectionNumber = parseInt($stateParams.sectionnumber, 10),
         moduleId = $stateParams.moduleid,
         course = $stateParams.course ? angular.copy($stateParams.course) : false;
+
+    // UCLA Change site based on siteid for this course
+    // $stateParams.course.siteid only shows for courses NOT in current site
+    console.log('tinytiger')
+    console.log($stateParams.course.siteid)
+    console.log($stateParams.course)
+    $mmSitesManager.loadSite($stateParams.course.siteid) // this doesn't sufficiently change app state to correct site...
+    console.log($stateParams.course.siteid)
 
     $scope.courseId = courseId;
     $scope.sectionToLoad = 2; // Load "General" section by default.

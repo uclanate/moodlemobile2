@@ -22,7 +22,7 @@ angular.module('mm.core.courses')
  * @name mmCoursesListCtrl
  */
 .controller('mmCoursesListCtrl', function($scope, $mmCourses, $mmCoursesDelegate, $mmUtil, $mmEvents, $mmSite, $q,
-            mmCoursesEventMyCoursesUpdated, mmCoreEventSiteUpdated) {
+            mmCoursesEventMyCoursesUpdated, mmCoreEventSiteUpdated, $mmSitesManager) {
 
     var updateSiteObserver,
         myCoursesObserver;
@@ -44,7 +44,7 @@ angular.module('mm.core.courses')
                     course.navOptions = options.navOptions[course.id];
                     course.admOptions = options.admOptions[course.id];
                 });
-                
+
                 $scope.courses = courses;
             });
         }, function(error) {

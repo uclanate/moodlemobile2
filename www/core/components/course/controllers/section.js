@@ -105,6 +105,7 @@ angular.module('mm.core.course')
         });
     }
 
+
     loadContent(sectionId).finally(function() {
         $scope.sectionLoaded = true;
 

@@ -31,12 +31,12 @@ angular.module('mm.core.course')
         course = $stateParams.course ? angular.copy($stateParams.course) : false;
 
     // UCLA Change site based on siteid for this course
-    // $stateParams.course.siteid only shows for courses NOT in current site
-    console.log('tinytiger')
-    console.log($stateParams.course.siteid)
-    console.log($stateParams.course)
-    $mmSitesManager.loadSite($stateParams.course.siteid) // this doesn't sufficiently change app state to correct site...
-    console.log($stateParams.course.siteid)
+    // // $stateParams.course.siteid only shows for courses NOT in current site
+    // console.log('tinytiger')
+    // console.log($stateParams.course.siteid)
+    // console.log($stateParams.course)
+    // $mmSitesManager.loadSite($stateParams.course.siteid) // this doesn't sufficiently change app state to correct site...
+    // console.log($stateParams.course.siteid)
 
     $scope.courseId = courseId;
     $scope.sectionToLoad = 2; // Load "General" section by default.

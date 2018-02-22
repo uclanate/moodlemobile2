@@ -22,7 +22,7 @@ angular.module('mm.core.courses')
  * @name mmCoursesListCtrl
  */
 .controller('mmCoursesListCtrl', function($scope, $mmCourses, $mmCoursesDelegate, $mmUtil, $mmEvents, $mmSite, $q,
-            mmCoursesEventMyCoursesUpdated, mmCoreEventSiteUpdated, $mmSitesManager) {
+            mmCoursesEventMyCoursesUpdated, mmCoreEventSiteUpdated) {
 
     var updateSiteObserver,
         myCoursesObserver;
@@ -31,20 +31,20 @@ angular.module('mm.core.courses')
     $scope.filter = {};
 
     // Convenience function to fetch courses.
-
     function fetchCourses(refresh) {
-        return $mmCourses.getUserCoursesPooled().then(function(courses){
+        return $mmCourses.getUserCourses().then(function(courses) {
             $scope.filter.filterText = ''; // Filter value MUST be set after courses are shown.
+
             var courseIds = courses.map(function(course) {
                 return course.id;
             });
+
             return $mmCourses.getCoursesOptions(courseIds).then(function(options) {
                 angular.forEach(courses, function(course) {
                     course.progress = isNaN(parseInt(course.progress, 10)) ? false : parseInt(course.progress, 10);
                     course.navOptions = options.navOptions[course.id];
                     course.admOptions = options.admOptions[course.id];
                 });
-
                 $scope.courses = courses;
             });
         }, function(error) {
@@ -71,16 +71,16 @@ angular.module('mm.core.courses')
     };
 
     myCoursesObserver = $mmEvents.on(mmCoursesEventMyCoursesUpdated, function(siteid) {
-        // if (siteid == $mmSite.getId()) {
+        if (siteid == $mmSite.getId()) {
             fetchCourses();
-        // }
+        }
     });
 
 
     updateSiteObserver = $mmEvents.on(mmCoreEventSiteUpdated, function(siteId) {
-        // if ($mmSite.getId() === siteId) {
+        if ($mmSite.getId() === siteId) {
             $scope.searchEnabled = $mmCourses.isSearchCoursesAvailable() && !$mmCourses.isSearchCoursesDisabledInSite();
-        // }
+        }
     });
 
     $scope.$on('$destroy', function() {

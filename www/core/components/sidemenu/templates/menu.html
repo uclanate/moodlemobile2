@@ -27,25 +27,18 @@
                     </li>
 
                     <!-- SITE HOME / NOTIFICATIONS CALENDAR EVENTS / FILES / ETC -->
-                    <!-- <li ng-repeat="handler in handlers | orderBy:'-priority'" ng-controller="handler.controller" class="mm-sidemenu-handler {{class}}">
+                    <li ng-repeat="handler in handlers | orderBy:'-priority'" ng-controller="handler.controller" class="mm-sidemenu-handler {{class}}">
                         <a menu-close class="item item-icon-left" ui-sref="{{state}}" title="{{title | translate}}" ng-class="{'item-icon-right': loading}">
                             <i class="icon {{icon}}"></i> {{title | translate}}
                             <span ng-show="!loading && badge" class="badge badge-positive">{{badge}}</span>
                             <ion-spinner ng-if="loading" class="icon"></ion-spinner>
                         </a>
-                    </li> -->
-
-                    <!-- MY COURSES -->
-                    <li>
-                        <a menu-close class="item item-icon-left" ui-sref="site.mm_courses" title="{{ 'mm.sidemenu.courses' | translate}}">
-                            <i class="icon ion-home"></i>{{ 'mm.sidemenu.mycourses' | translate}}
-                        </a>
                     </li>
 
-                    <!-- NOTIFICATIONS (NOT WORKING)-->
+                    <!-- MY COURSES- PULLED OUT OF LOOP ABOVE -->
                     <!-- <li>
-                        <a menu-close class="item item-icon-left" ui-sref="site.mm_notifications" title="{{ 'mm.sidemenu.courses' | translate}}">
-                            <i class="icon ion-home"></i>{{ 'mm.sidemenu.notifications' | translate}}
+                        <a menu-close class="item item-icon-left" ui-sref="site.mm_courses" title="{{ 'mm.sidemenu.courses' | translate}}">
+                            <i class="icon ion-home"></i>{{ 'mm.sidemenu.mycourses' | translate}}
                         </a>
                     </li> -->
 
@@ -71,7 +64,7 @@
                     </li>
                     <li>
                         <a class="item item-icon-left" ng-click="logout()" title="{{ 'mm.sidemenu.changesite' | translate}}">
-                            <i class="icon ion-log-out"></i>Switch Sites
+                            <i class="icon ion-log-out"></i>Switch Moodle Site
                         </a>
                     </li>
                 </ul>

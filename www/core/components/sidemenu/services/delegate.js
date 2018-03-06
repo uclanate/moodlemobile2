@@ -204,7 +204,9 @@ angular.module('mm.core.sidemenu')
                             priority: handler.priority
                         });
                     });
-
+                    console.log('tinytiger')
+                    console.log(currentSiteHandlers)
+                    console.log(self)
                     loaded = true;
                 }
             });

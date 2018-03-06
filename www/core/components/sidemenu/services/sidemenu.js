@@ -36,6 +36,7 @@ angular.module('mm.core.sidemenu')
      * @param  {String} [siteId] Site ID. If not defined, current site.
      * @return {Object[]}        List of custom menu items.
      */
+     // UCLA SITES DO NOT HAVE ANY VALID CUSTOM MENU ITEMS (2/20/18)
     self.getCustomMenuItems = function(siteId) {
         return $mmSitesManager.getSite(siteId).then(function(site) {
             var itemsString = site.getStoredConfig('tool_mobile_custommenuitems'),
@@ -49,6 +50,7 @@ angular.module('mm.core.sidemenu')
                 // Setting not valid.
                 return result;
             }
+
 
             // Add items to the map.
             items = itemsString.split(/(?:\r\n|\r|\n)/);
@@ -88,6 +90,9 @@ angular.module('mm.core.sidemenu')
                     icon: icon
                 };
             });
+
+            console.log('tinytiger1')
+            console.log(result)
 
             if (!position) {
                 // No valid items found, stop.
